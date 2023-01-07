@@ -1,6 +1,31 @@
 {
-    "users": [],
-    "orders": [],
-    "products": [],
-    "category": []
+  "users": [
+    {
+      "email": "jonibek@gmail.com",
+      "password": "$2a$10$A3b9MHG/74a2FRc9p1IVvebVllvgpSb7XCAM/uVSeTxKcDNSez1py",
+      "first_name": "Jonibek",
+      "last_name": "Qodirov",
+      "gender": "male",
+      "id": 1
+    },
+    {
+      "email": "laaziz@gmail.com",
+      "password": "$2a$10$XGl12rTosRNe0qlsp0zaAOyLZRAzoV/F0XFJdVprYz06fLyWRF2Su",
+      "first_name": "Laziz",
+      "last_name": "Azizov",
+      "gender": "male",
+      "id": 2
+    },
+    {
+      "email": "sulton@gmail.com",
+      "password": "$2a$10$rQzQPQVJMel2jKgAs.j4wuWNWgfLmu8JL5wO7FVKctgz6RLm912JC",
+      "first_name": "Sulton",
+      "last_name": "Mahkambekov",
+      "gender": "male",
+      "id": 3
+    }
+  ],
+  "orders": [],
+  "products": [],
+  "category": []
 }

@@ -2,14 +2,20 @@ import { Paper, Typography, Link, TextField, Stack, InputAdornment, Button } fro
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link as RouterLink } from 'react-router-dom';
-import { useState} from 'react';
+import { useContext, useState} from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import axios from "axios";
+import { AuthContext } from "../../context/auth-context";
+import { UserContext } from "../../context/user-context";
 
 export const Login = () => {
 
   const [ inputType, setInputType ] = useState(false)
+
+  const { setToken } = useContext(AuthContext);
+  const { setUser } = useContext(UserContext);
 
   const schema = Yup.object({
     email: Yup.string().email('Invalid email').required('Required!!'),
@@ -30,7 +36,16 @@ export const Login = () => {
     <Typography variant='h4' component='h2' textAlign='center' marginBottom='7px'>Login</Typography>
     <Typography marginBottom='15px' textAlign='center' variant='body2'>Sizda akkaunt yo'qmi ? <Link marginLeft='10px' underline='hover' component={RouterLink} to="/register">Register</Link></Typography>
 
-    <form onSubmit={handleSubmit((data) => {console.log(data)})}>
+    <form onSubmit={handleSubmit((data) => {
+      axios.post('http://localhost:8080/login', data)
+      .then(res => {
+        if(res.status === 200){
+          setToken(res.data.accessToken);
+          setUser(res.data.user);
+        }
+      })
+      .catch(err => console.log(err));
+    })}>
       <Stack spacing={2}>
 
         <TextField {...register('email')} type='email' label='Email'

@@ -3,6 +3,7 @@ import { Login } from "./pages/Login/Login";
 import { Admin } from "./pages/Admin/Admin";
 import { Register } from "./pages/Register/Register";
 import { Client } from "./pages/Client/Client";
+import './App.css';
 
 function App() {
   return (
