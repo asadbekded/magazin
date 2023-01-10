@@ -4,143 +4,51 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { CardMedia } from '@mui/material';
-import { Box } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/auth-context';
+import { useCart } from 'react-use-cart';
 
-export const Cardshop = () => {
+
+export const Cardshop = ({el}) => {
+
+  const { name, price, image } = el;
+  const { token } = React.useContext(AuthContext)
+  const { addItem } = useCart();
+
+  const navigate = useNavigate();
+
+  const handleCard = () => {
+    if(token){
+      addItem(el)
+    }else{
+      navigate('/login')
+    }
+  }
 
   return (
-    <Box sx={{paddingTop: 2, paddingBottom: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap'}} >
-      <Card sx={{ maxWidth: 300, marginBottom: 4}}>
+    <Card sx={{ width: 240, marginBottom: 4, boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}}>
 
       <CardMedia
-        sx={{ height: 170 }}
-        image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD4h2WHSL2wpkBCTdl7u4uXbixaUI8_8Ge-w&usqp=CAU'
+        sx={{ height: 250 }}  
+        image={image}
         title="phone img"
       />
 
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Iphone
+          {name}
         </Typography>
-        <Typography variant="body3">1400$</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
+        <Typography gutterBottom variant="body3">Price: {price}$</Typography>
       </CardContent>
 
 
       <CardActions>
-        <Button variant="contained" size="small">Add +</Button>
+        <Button onClick={() => handleCard()} type='button' variant="contained" size="small" 
+        endIcon={<AddShoppingCartIcon sx={{color: 'white'}}/>}>Buy</Button>
       </CardActions>
 
-      </Card>
-
-      <Card sx={{ maxWidth: 300, marginBottom: 4}}>
-
-<CardMedia
-  sx={{ height: 170 }}
-  image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD4h2WHSL2wpkBCTdl7u4uXbixaUI8_8Ge-w&usqp=CAU'
-  title="phone img"
-/>
-
-<CardContent>
-  <Typography gutterBottom variant="h5" component="div">
-    Iphone
-  </Typography>
-  <Typography variant="body3">1400$</Typography>
-  <Typography variant="body2" color="text.secondary">
-    Lizards are a widespread group of squamate reptiles, with over 6,000
-    species, ranging across all continents except Antarctica
-  </Typography>
-</CardContent>
-
-
-<CardActions>
-  <Button variant="contained" size="small">Add +</Button>
-</CardActions>
-
-      </Card>
-
-      <Card sx={{ maxWidth: 300, marginBottom: 4}}>
-
-<CardMedia
-  sx={{ height: 170 }}
-  image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD4h2WHSL2wpkBCTdl7u4uXbixaUI8_8Ge-w&usqp=CAU'
-  title="phone img"
-/>
-
-<CardContent>
-  <Typography gutterBottom variant="h5" component="div">
-    Iphone
-  </Typography>
-  <Typography variant="body3">1400$</Typography>
-  <Typography variant="body2" color="text.secondary">
-    Lizards are a widespread group of squamate reptiles, with over 6,000
-    species, ranging across all continents except Antarctica
-  </Typography>
-</CardContent>
-
-
-<CardActions>
-  <Button variant="contained" size="small">Add +</Button>
-</CardActions>
-
-      </Card>
-
-      <Card sx={{ maxWidth: 300, marginBottom: 4}}>
-
-<CardMedia
-  sx={{ height: 170 }}
-  image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD4h2WHSL2wpkBCTdl7u4uXbixaUI8_8Ge-w&usqp=CAU'
-  title="phone img"
-/>
-
-<CardContent>
-  <Typography gutterBottom variant="h5" component="div">
-    Iphone
-  </Typography>
-  <Typography variant="body3">1400$</Typography>
-  <Typography variant="body2" color="text.secondary">
-    Lizards are a widespread group of squamate reptiles, with over 6,000
-    species, ranging across all continents except Antarctica
-  </Typography>
-</CardContent>
-
-
-<CardActions>
-  <Button variant="contained" size="small">Add +</Button>
-</CardActions>
-
-      </Card>
-
-      <Card sx={{ maxWidth: 300, marginBottom: 4}}>
-
-<CardMedia
-  sx={{ height: 170 }}
-  image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD4h2WHSL2wpkBCTdl7u4uXbixaUI8_8Ge-w&usqp=CAU'
-  title="phone img"
-/>
-
-<CardContent>
-  <Typography gutterBottom variant="h5" component="div">
-    Iphone
-  </Typography>
-  <Typography variant="body3">1400$</Typography>
-  <Typography variant="body2" color="text.secondary">
-    Lizards are a widespread group of squamate reptiles, with over 6,000
-    species, ranging across all continents except Antarctica
-  </Typography>
-</CardContent>
-
-
-<CardActions>
-  <Button variant="contained" size="small">Add +</Button>
-</CardActions>
-
-      </Card>
-    </Box>
+    </Card>
   );
 }

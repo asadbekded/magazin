@@ -1,0 +1,6 @@
+.box-flow{
+    overflow: auto;
+}
+.box-flow::-webkit-scrollbar {
+    width: 0;
+  }

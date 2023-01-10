@@ -1,7 +1,7 @@
 import { Paper, Typography, Link, TextField, Stack, InputAdornment, Button } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useContext, useState} from 'react';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +12,8 @@ import { UserContext } from "../../context/user-context";
 
 export const Login = () => {
 
-  const [ inputType, setInputType ] = useState(false)
+  const [ inputType, setInputType ] = useState(false);
+  const navigate = useNavigate();
 
   const { setToken } = useContext(AuthContext);
   const { setUser } = useContext(UserContext);
@@ -42,6 +43,7 @@ export const Login = () => {
         if(res.status === 200){
           setToken(res.data.accessToken);
           setUser(res.data.user);
+          navigate('/')
         }
       })
       .catch(err => console.log(err));
