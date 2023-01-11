@@ -4,7 +4,8 @@ import React from 'react';
 
 export const ProductCard = ({el}) => {
 
-  const { name, price, image } = el;
+  const { name, price, image, id } = el;
+
 
   return (
     <Card sx={{ width: 250, marginBottom: 4, boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}}>
@@ -25,7 +26,7 @@ export const ProductCard = ({el}) => {
 
       <CardActions>
         <Button color='warning' variant="contained" size="small" endIcon={<Edit/>}>Edit</Button>
-        <Button color='error' variant="contained" size="small" endIcon={<Delete/>}>Del</Button>
+        <Button type='button' color='error' variant="contained" size="small" endIcon={<Delete/>}>Del</Button>
       </CardActions>
 
     </Card>

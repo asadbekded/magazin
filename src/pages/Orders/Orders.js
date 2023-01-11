@@ -1,4 +1,4 @@
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -45,7 +45,18 @@ export const Orders = () => {
                         <TableCell>{el.user_email}</TableCell>
                         {
                           el.products.map(item => (
-                            <TableCell component='h5'>{item.name}</TableCell>
+                            
+                            <TableCell key={item.id} >
+                              <Box sx={{ display: 'flex' }}>
+                                <Box><img sx={{height:"10px"}} src={item.image} alt="img" width={40} height={10}/></Box>
+                                <Box>
+                                  <Typography>{item.name}</Typography>
+                                  <Typography>Price: {item.price}$</Typography>
+                                </Box>
+                              </Box>
+                              <Typography>{`${item.price}$ x ${item.quantity} = ${item.itemTotal}$`}</Typography>
+
+                            </TableCell>
                           ))
                         }
                         <TableCell>{el.total_price}$</TableCell>
