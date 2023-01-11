@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Container, Toolbar, IconButton, Box, Link, Drawer, Badge, Stack, Button, Typography } from '@mui/material'
+import { AppBar, Avatar, Container, Toolbar, IconButton, Box, Link, Drawer, Badge, Stack, Button, Typography, Collapse, List  } from '@mui/material'
 import React, { useContext, useState } from 'react';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link as RouterLink} from 'react-router-dom';
@@ -8,16 +8,21 @@ import { CardCard } from '../CardCard/CardCard';
 import { UserContext } from '../../context/user-context';
 import { Modal } from '../Modal/Modal';
 import axios from 'axios';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { AuthContext } from '../../context/auth-context';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 
 export const Header = ({totalItems, isEmpty, cartTotal, emptyCart, id, items}) => {
   const [ orderModal, setOrderModal ] = useState(false);
   const [ drawer, setDrawer ] = useState(false);
+  const [open, setOpen] = useState(false);
   const handleDelete = () => {
     emptyCart(id)
     setDrawer(false)
   }
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext);
+  const { token } = useContext(AuthContext);
 
   const handleOrder = () => {
 
@@ -37,6 +42,19 @@ export const Header = ({totalItems, isEmpty, cartTotal, emptyCart, id, items}) =
     .catch(err => console.log(err))
 
   }
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
+  const handleRemove = () => {
+    handleDelete()
+    localStorage.removeItem('user', user)
+    localStorage.removeItem('token', token)
+    window.location.reload()
+    setOpen(false)
+  }
+
 
   
 
@@ -81,9 +99,19 @@ export const Header = ({totalItems, isEmpty, cartTotal, emptyCart, id, items}) =
                         </Drawer>
                       </Badge>
 
-                      <Avatar sx={{color:'white', backgroundColor:'teal', marginLeft: '15px'}} > 
-                      {user.first_name.charAt(0) + user.last_name.charAt(0)}
+                      <Avatar onClick={handleClick} sx={{color:'white', backgroundColor:'teal', marginLeft: '15px'}} > 
+                      {user ? user.first_name.charAt(0) + user.last_name.charAt(0) : <PersonAddIcon/> }
                       </Avatar>
+
+                      <Collapse in={open} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                          <Button onClick={handleRemove} variant='outlined' sx={{ pl: 1, pr: 1 }}>
+                            <LogoutIcon sx={{color: 'white'}}/>
+                          </Button>
+                        </List>
+                      </Collapse>
+
+                      
                     </Box>
                 </Box>
             </Toolbar>
