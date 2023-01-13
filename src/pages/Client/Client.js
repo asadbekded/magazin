@@ -9,7 +9,7 @@ import { useCart } from 'react-use-cart';
 export const Client = () => {
 
   const [ product, setProduct ] = useState([]);
-  const { totalItems, isEmpty, cartTotal, emptyCart, id, items } = useCart()
+  const { totalItems, isEmpty, cartTotal, emptyCart, id, items } = useCart();
 
   const getProducts = async () => {
     axios.get('http://localhost:8080/products')

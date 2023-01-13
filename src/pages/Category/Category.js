@@ -12,6 +12,7 @@ export const Category = () => {
     const [ categoryModal, setCategoryModal ] = useState(false);
     const [ category, setCategory ] = useState([]);
 
+
     const categoryRef = useRef();
 
     const handleSubmit = (evt) => {
@@ -36,6 +37,13 @@ export const Category = () => {
         })
         .catch(err => console.log(err))
     }
+
+    const handleDel = async (id) => {
+        axios.delete('http://localhost:8080/category/' + id)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+
 
     useEffect(() => {
         getCategory()
@@ -68,9 +76,11 @@ export const Category = () => {
                                     <IconButton sx={{ marginRight: '7px'}}>
                                         <Edit sx={{color: 'orange'}}/>
                                     </IconButton>
-                                    <IconButton>
+
+                                    <IconButton onClick={() => handleDel(el.id)}>
                                         <Delete sx={{color: 'red'}}/>
                                     </IconButton>
+
                                 </TableCell>
                             </TableRow>
                         ))
